@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>fx-Calc PRO</title>
+<meta name="theme-color" content="#141418">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="fx-Calc">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#141418;
+  --panel:#1c1c22;
+  --screen-bg:#cfdfd9;
+  --screen-bg2:#c3d6cf;
+  --key-dark:#2b2b32;
+  --key-mid:#3d3d46;
+  --key-light:#55555f;
+  --key-orange:#e8923c;
+  --key-orange-dark:#c97a2c;
+  --key-alpha:#7b5fc7;
+  --key-shift:#e0a92e;
+  --txt-white:#eef0f2;
+  --txt-yellow:#e2b23c;
+  --txt-purple:#a586e8;
+  --txt-cyan:#5fc7d8;
+  --txt-dim:#8a8a92;
+  --accent:#e8923c;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color: transparent; user-select:none;}
+html,body{
+  height:100%; margin:0; background:var(--bg); color:var(--txt-white);
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow:hidden;
+}
+#app{
+  display:flex; flex-direction:column; height:100vh; height:100dvh;
+  max-width:520px; margin:0 auto; background:var(--bg);
+  padding-top: var(--safe-top); padding-bottom: var(--safe-bottom);
+}
+/* status/topbar */
+.topbar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:6px 14px 2px; font-size:12px; color:var(--txt-dim); letter-spacing:.5px;
+}
+.mode-tabs{
+  display:flex; gap:16px; padding:4px 16px 8px; font-size:13px; font-weight:600;
+  color:var(--txt-dim); letter-spacing:1px;
+}
+.mode-tabs span.active{ color:var(--txt-white); }
+
+/* screen */
+.screen-wrap{
+  margin:0 12px 10px; border-radius:14px; overflow:hidden;
+  background:linear-gradient(180deg,var(--screen-bg),var(--screen-bg2));
+  box-shadow: inset 0 2px 10px rgba(0,0,0,.25), 0 4px 10px rgba(0,0,0,.3);
+  flex-shrink:0;
+}
+#screen{
+  min-height:150px;
+  padding:14px 16px 10px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  font-family: "Courier New", monospace;
+  color:#1d2b28;
+}
+.indicators{
+  display:flex; gap:8px; font-size:10px; font-weight:700; color:#3d5c54;
+  min-height:14px; letter-spacing:1px;
+}
+.indicators span{ opacity:.25; }
+.indicators span.on{ opacity:1; }
+#expr{
+  font-size:19px; min-height:26px; text-align:right; word-break:break-all;
+  opacity:.85; letter-spacing:.5px;
+}
+#result{
+  font-size:34px; text-align:right; font-weight:600; min-height:42px;
+  letter-spacing:.5px; word-break:break-all;
+}
+
+/* function row (row of small round icons) */
+.func-row{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:2px 14px 8px; flex-shrink:0;
+}
+.fbtn{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--key-dark); font-size:11px; font-weight:700; color:var(--txt-white);
+  border:1px solid #38383f;
+}
+.fbtn.pro{
+  width:auto;padding:0 12px; border-radius:20px;
+  background:linear-gradient(180deg,#8f6ce0,#6a48c2); gap:4px; color:#fff;
+}
+.fbtn.deg{ width:auto; padding:0 10px; border-radius:10px; font-size:11px; }
+.fbtn.scan{ width:auto; padding:0 12px; border-radius:20px; gap:6px; background:#0b0b0d; border-color:#000;}
+
+/* keypad */
+.keypad{
+  flex:1; display:flex; flex-direction:column; justify-content:flex-end;
+  padding:0 8px 8px; gap:5px; min-height:0;
+}
+.row{ display:flex; gap:5px; flex:1; min-height:0; }
+.cell{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-width:0; }
+.key{
+  width:100%; flex:1; border:none; border-radius:10px;
+  background:var(--key-mid); color:var(--txt-white);
+  font-size:17px; font-weight:500; display:flex; align-items:center; justify-content:center;
+  min-height:0; position:relative;
+}
+.key:active{ filter:brightness(1.25); }
+.key.dark{ background:var(--key-dark); }
+.key.light{ background:var(--key-light); }
+.key.orange{ background:linear-gradient(180deg,#f0a355,var(--key-orange-dark)); color:#231205; font-weight:700;}
+.key.shift{ background:linear-gradient(180deg,#f0c14e,var(--key-shift)); color:#241a02; font-weight:700; }
+.key.alpha{ background:linear-gradient(180deg,#9a80e8,var(--key-alpha)); color:#fff; font-weight:700; }
+.key.shift.active{ box-shadow:0 0 0 2px #fff inset; }
+.key.alpha.active{ box-shadow:0 0 0 2px #fff inset; }
+.key sup{ font-size:.6em; }
+.sublabels{
+  display:flex; justify-content:space-between; width:92%; font-size:9.5px; font-weight:700;
+  padding:2px 2px 0; min-height:12px; line-height:1;
+}
+.sub-shift{ color:var(--txt-yellow); text-align:left; flex:1; }
+.sub-alpha{ color:var(--txt-purple); text-align:right; flex:1; }
+.sub-shift.only, .sub-alpha.only{ flex:none; width:100%; text-align:center; }
+
+@media (max-height: 700px){
+  #screen{ min-height:120px; padding:10px 14px 6px; }
+  #result{ font-size:28px; min-height:34px; }
+  .sublabels{ font-size:8.5px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar"><span>fx-Calc PRO</span><span id="clock">--:--</span></div>
+  <div class="mode-tabs">
+    <span id="tab-norm" class="active">NORM</span>
+    <span id="tab-math">MATH</span>
+    <span id="tab-deci">DECI</span>
+  </div>
+
+  <div class="screen-wrap">
+    <div id="screen">
+      <div class="indicators">
+        <span id="ind-shift">SHIFT</span>
+        <span id="ind-alpha">ALPHA</span>
+        <span id="ind-deg">DEG</span>
+        <span id="ind-rad">RAD</span>
+        <span id="ind-m" style="margin-left:auto">M</span>
+      </div>
+      <div id="expr"></div>
+      <div id="result">0</div>
+    </div>
+  </div>
+
+  <div class="func-row">
+    <div class="fbtn" data-act="menu">☰</div>
+    <div class="fbtn pro">◈ PRO</div>
+    <div class="fbtn" data-act="sum">Σ</div>
+    <div class="fbtn" data-act="settings">⚙</div>
+    <div class="fbtn" data-act="angleunit">±</div>
+    <div class="fbtn deg" id="degBtn" data-act="toggledeg">DEG</div>
+  </div>
+
+  <div class="keypad" id="keypad"></div>
+</div>
+
+<script>
+/* ================= DATA MODEL FOR KEYS ================= */
+/*
+ each key: { main, sub1(shift-left), sub2(alpha-right or center), cls, action }
+ action refers to a function name handled in press()
+*/
+const rows = [
+[
+ {main:"SHIFT", cls:"shift", action:"shift"},
+ {main:"ALPHA", cls:"alpha", action:"alpha"},
+ {main:"◀", cls:"dark", action:"left"},
+ {main:"▶", cls:"dark", action:"right"},
+ {main:"MODE", cls:"dark", action:"mode"},
+ {main:"2nd", cls:"dark", action:"noop"}
+],
+[
+ {main:"SOLVE", sub1:"SOLVE", sub2:"d/dx", cls:"light", action:"noop"},
+ {main:"∫dx", sub1:"∫dx", cls:"light", action:"insert:∫("},
+ {main:"▲", cls:"light", action:"up"},
+ {main:"▼", cls:"light", action:"down"},
+ {main:"x⁻¹", sub1:"x⁻¹", cls:"light", action:"insert:^(-1)"},
+ {main:"Logₓy", sub1:"Logₓy", cls:"light", action:"insert:logx("}
+],
+[
+ {main:"x/y", sub1:"x/y", sub2:"÷R", cls:"light", action:"insert:/"},
+ {main:"√x", sub1:"³√x", sub2:"mod", cls:"light", action:"insert:√("},
+ {main:"x²", sub1:"x³", cls:"light", action:"insert:^2"},
+ {main:"xʸ", sub1:"ˣ√y", cls:"light", action:"insert:^("},
+ {main:"Log", sub1:"10ˣ", cls:"light", action:"insert:log("},
+ {main:"Ln", sub1:"eˣ", cls:"light", action:"insert:ln("}
+],
+[
+ {main:"(-)", sub1:"∠", sub2:"a", cls:"light", action:"negate"},
+ {main:"°'\"", sub1:"°'\"", cls:"light", action:"insert:°"},
+ {main:"hyp", sub1:"FACT", sub2:"b", cls:"light", action:"toggleHyp"},
+ {main:"Sin", sub1:"Sin⁻¹", sub2:"d", cls:"light", action:"insert:sin("},
+ {main:"Cos", sub1:"Cos⁻¹", sub2:"e", cls:"light", action:"insert:cos("},
+ {main:"Tan", sub1:"Tan⁻¹", sub2:"f", cls:"light", action:"insert:tan("}
+],
+[
+ {main:"RCL", sub1:"STO", sub2:"CLRv", cls:"light", action:"rcl"},
+ {main:"ENG", sub1:"i", sub2:"Cot", cls:"light", action:"insert:E"},
+ {main:"(", sub1:"%", cls:"light", action:"insert:("},
+ {main:")", sub1:"Cot⁻¹", cls:"light", action:"insert:)"},
+ {main:"S⇌D", sub1:",", sub2:"x", cls:"light", action:"noop"},
+ {main:"M+", sub1:"M-", sub2:"m", cls:"light", action:"mplus"}
+],
+[
+ {main:"7", sub1:"MATRIX", cls:"dark num", action:"insert:7"},
+ {main:"8", sub1:"VECTOR", cls:"dark num", action:"insert:8"},
+ {main:"9", sub1:"FUNC", sub2:"HELP", cls:"dark num", action:"insert:9"},
+ {main:"⌫", sub1:"nPr", sub2:"GCD", cls:"orange", action:"del"},
+ {main:"AC", sub1:"CLR", sub2:"ALL", cls:"orange", action:"clear"}
+],
+[
+ {main:"4", sub1:"STAT", cls:"dark num", action:"insert:4"},
+ {main:"5", sub1:"CMPLX", cls:"dark num", action:"insert:5"},
+ {main:"6", sub1:"DISTR", cls:"dark num", action:"insert:6"},
+ {main:"×", sub1:"Pol", sub2:"Ceil", cls:"dark", action:"insert:*"},
+ {main:"÷", sub1:"Rec", sub2:"Floor", cls:"dark", action:"insert:/"}
+],
+[
+ {main:"1", cls:"dark num", action:"insert:1"},
+ {main:"2", cls:"dark num", action:"insert:2"},
+ {main:"3", cls:"dark num", action:"insert:3"},
+ {main:"+", cls:"dark", action:"insert:+"},
+ {main:"−", cls:"dark", action:"insert:-"}
+],
+[
+ {main:"0", sub1:"COPY", sub2:"PASTE", cls:"dark num", action:"insert:0"},
+ {main:".", sub1:"Ran#", sub2:"RanInt", cls:"dark num", action:"insert:."},
+ {main:"Exp", sub1:"π", sub2:"e", cls:"dark", action:"expOrPi"},
+ {main:"Ans", sub1:"PreAns", cls:"dark", action:"insert:Ans"},
+ {main:"=", sub1:"History", cls:"orange", action:"equals"}
+]
+];
+
+const keypad = document.getElementById('keypad');
+rows.forEach(r=>{
+  const rowEl = document.createElement('div');
+  rowEl.className='row';
+  r.forEach(k=>{
+    const cell = document.createElement('div');
+    cell.className='cell';
+    const btn = document.createElement('button');
+    btn.className = 'key ' + (k.cls||'');
+    btn.innerHTML = k.main;
+    btn.dataset.action = k.action;
+    btn.addEventListener('click', ()=>press(k.action, btn));
+    cell.appendChild(btn);
+    if(k.sub1 || k.sub2){
+      const subs = document.createElement('div');
+      subs.className='sublabels';
+      if(k.sub1 && k.sub2){
+        subs.innerHTML = `<span class="sub-shift">${k.sub1}</span><span class="sub-alpha">${k.sub2}</span>`;
+      } else if(k.sub1){
+        subs.innerHTML = `<span class="sub-shift only">${k.sub1}</span>`;
+      }
+      cell.appendChild(subs);
+    } else {
+      const spacer = document.createElement('div');
+      spacer.className='sublabels';
+      spacer.innerHTML='&nbsp;';
+      cell.appendChild(spacer);
+    }
+    rowEl.appendChild(cell);
+  });
+  keypad.appendChild(rowEl);
+});
+
+/* ================= STATE ================= */
+let expr = "";
+let result = "0";
+let ans = 0;
+let memory = 0;
+let isDeg = true;
+let shiftOn = false;
+let alphaOn = false;
+let hypOn = false;
+let justEvaluated = false;
+
+const exprEl = document.getElementById('expr');
+const resultEl = document.getElementById('result');
+const indShift = document.getElementById('ind-shift');
+const indAlpha = document.getElementById('ind-alpha');
+const indDeg = document.getElementById('ind-deg');
+const indRad = document.getElementById('ind-rad');
+const indM = document.getElementById('ind-m');
+const degBtn = document.getElementById('degBtn');
+
+function render(){
+  exprEl.textContent = expr;
+  resultEl.textContent = result;
+  indShift.classList.toggle('on', shiftOn);
+  indAlpha.classList.toggle('on', alphaOn);
+  indDeg.classList.toggle('on', isDeg);
+  indRad.classList.toggle('on', !isDeg);
+  indM.classList.toggle('on', memory !== 0);
+  degBtn.textContent = isDeg ? "DEG" : "RAD";
+}
+render();
+
+function press(action, btn){
+  if(navigator.vibrate) navigator.vibrate(8);
+  if(!action) return;
+  if(action.startsWith('insert:')){
+    let val = action.slice(7);
+    if(shiftOn) val = shiftMap(val);
+    doInsert(val);
+    if(shiftOn) shiftOn=false;
+    render();
+    return;
+  }
+  switch(action){
+    case 'shift': shiftOn=!shiftOn; if(shiftOn) alphaOn=false; render(); return;
+    case 'alpha': alphaOn=!alphaOn; if(alphaOn) shiftOn=false; render(); return;
+    case 'toggledeg': isDeg=!isDeg; render(); return;
+    case 'toggleHyp': hypOn=!hypOn; return;
+    case 'clear':
+      if(shiftOn){ expr=""; result="0"; ans=0; memory=0; shiftOn=false; }
+      else { expr=""; result= justEvaluated ? result : "0"; if(!justEvaluated) result="0"; }
+      justEvaluated=false;
+      render(); return;
+    case 'del':
+      if(justEvaluated){ expr=""; justEvaluated=false; }
+      else expr = expr.slice(0,-1);
+      render(); return;
+    case 'left': moveCursorPlaceholder(); return;
+    case 'right': moveCursorPlaceholder(); return;
+    case 'up': case 'down': case 'noop': case 'mode':
+    case 'menu': case 'sum': case 'settings': case 'angleunit': return;
+    case 'negate':
+      doInsert('-');
+      render(); return;
+    case 'mplus':
+      try{
+        const v = evaluate(expr || result);
+        if(shiftOn){ memory -= v; shiftOn=false; }
+        else memory += v;
+      }catch(e){}
+      render(); return;
+    case 'rcl':
+      if(shiftOn){ doInsert(String(memory)); shiftOn=false; }
+      else { doInsert(String(memory)); }
+      render(); return;
+    case 'expOrPi':
+      if(shiftOn){ doInsert('π'); shiftOn=false; }
+      else if(alphaOn){ doInsert('e'); alphaOn=false; }
+      else doInsert('E');
+      render(); return;
+    case 'equals':
+      doEquals(); return;
+    default: return;
+  }
+}
+
+function shiftMap(val){
+  const map = {
+    '7':'MATRIX-menu','8':'VECTOR-menu','9':'FUNC-menu',
+    '/':'/', '√(':'∛(', '^2':'^3', '^(':'^(1/', 'log(':'10^(', 'ln(':'e^(',
+    'sin(':'asin(', 'cos(':'acos(', 'tan(':'atan(',
+    '(':'%', 'E':'ENG'
+  };
+  return map[val] || val;
+}
+
+function moveCursorPlaceholder(){ /* simple calculators just append; caret nav omitted */ }
+
+function doInsert(val){
+  if(justEvaluated){
+    // continue from ans if operator pressed, else start new
+    const operators = ['+','-','*','/','^','^(','^2','^3'];
+    if(operators.includes(val)){ expr = "Ans" + toExprToken(val); }
+    else { expr = toExprToken(val); }
+    justEvaluated = false;
+  } else {
+    expr += toExprToken(val);
+  }
+}
+function toExprToken(val){
+  return val;
+}
+
+/* ================= EXPRESSION EVALUATION ================= */
+function preprocess(str){
+  let s = str;
+  s = s.replaceAll('Ans', '('+ans+')');
+  s = s.replaceAll('π', 'PI');
+  s = s.replaceAll('E', 'e+');
+  s = s.replaceAll('√(', 'sqrt(');
+  s = s.replaceAll('∛(', 'cbrt(');
+  s = s.replaceAll('log(', 'log10(');
+  s = s.replaceAll('ln(', 'loge(');
+  s = s.replaceAll('logx(', 'logx(');
+  // implicit multiplication: number followed by ( or PI or e or sqrt etc
+  s = s.replace(/(\d|\)|PI|Ans)(\()/g, '$1*(');
+  s = s.replace(/(\))(\d)/g, '$1*$2');
+  s = s.replace(/(\d)(PI)/g, '$1*$2');
+  return s;
+}
+
+// tokenizer + recursive descent parser supporting: + - * / ^ ! % parentheses functions
+function evaluate(raw){
+  let s = preprocess(raw);
+  let pos = 0;
+  function peek(){ return s[pos]; }
+  function isDigit(c){ return c>='0'&&c<='9'; }
+  function isAlpha(c){ return c && /[a-zA-Z_]/.test(c); }
+
+  function parseExpression(){ return parseAddSub(); }
+  function parseAddSub(){
+    let left = parseMulDiv();
+    while(peek()==='+'||peek()==='-'){
+      const op = s[pos++];
+      const right = parseMulDiv();
+      left = op==='+' ? left+right : left-right;
+    }
+    return left;
+  }
+  function parseMulDiv(){
+    let left = parseUnary();
+    while(peek()==='*'||peek()==='/'){
+      const op = s[pos++];
+      const right = parseUnary();
+      left = op==='*' ? left*right : left/right;
+    }
+    return left;
+  }
+  function parseUnary(){
+    if(peek()==='-'){ pos++; return -parseUnary(); }
+    if(peek()==='+'){ pos++; return parseUnary(); }
+    return parsePow();
+  }
+  function parsePow(){
+    let left = parsePostfix();
+    if(peek()==='^'){
+      pos++;
+      const right = parseUnary();
+      left = Math.pow(left, right);
+    }
+    return left;
+  }
+  function parsePostfix(){
+    let left = parseAtom();
+    while(peek()==='!' || peek()==='%'){
+      if(peek()==='!'){ pos++; left = factorial(left); }
+      else if(peek()==='%'){ pos++; left = left/100; }
+    }
+    return left;
+  }
+  function parseAtom(){
+    if(peek()==='('){
+      pos++;
+      const v = parseExpression();
+      if(peek()===')') pos++;
+      return v;
+    }
+    if(isDigit(peek()) || peek()==='.'){
+      let start = pos;
+      while(isDigit(peek())||peek()==='.') pos++;
+      return parseFloat(s.slice(start,pos));
+    }
+    if(isAlpha(peek())){
+      let start = pos;
+      while(isAlpha(peek())||isDigit(peek())) pos++;
+      const name = s.slice(start,pos);
+      return applyFunc(name);
+    }
+    throw new Error('Syntax error');
+  }
+  function applyFunc(name){
+    const constants = {PI: Math.PI, e:Math.E};
+    if(name in constants && peek()!=='('){ return constants[name]; }
+    if(peek()==='('){
+      pos++;
+      const arg = parseExpression();
+      let arg2 = null;
+      if(peek()===','){ pos++; arg2 = parseExpression(); }
+      if(peek()===')') pos++;
+      return callFunc(name, arg, arg2);
+    }
+    if(name in constants) return constants[name];
+    throw new Error('Unknown identifier: '+name);
+  }
+  function callFunc(name, x, y){
+    const toRad = v => isDeg ? v*Math.PI/180 : v;
+    const fromRad = v => isDeg ? v*180/Math.PI : v;
+    switch(name){
+      case 'sin': return Math.sin(toRad(x));
+      case 'cos': return Math.cos(toRad(x));
+      case 'tan': return Math.tan(toRad(x));
+      case 'asin': return fromRad(Math.asin(x));
+      case 'acos': return fromRad(Math.acos(x));
+      case 'atan': return fromRad(Math.atan(x));
+      case 'sqrt': return Math.sqrt(x);
+      case 'cbrt': return Math.cbrt(x);
+      case 'log10': return Math.log10(x);
+      case 'loge': return Math.log(x);
+      case 'logx': return y!=null ? Math.log(y)/Math.log(x) : Math.log10(x);
+      case 'abs': return Math.abs(x);
+      default: throw new Error('Unknown function: '+name);
+    }
+  }
+  function factorial(n){
+    if(n<0 || !Number.isFinite(n)) return NaN;
+    if(Math.floor(n)!==n){
+      // gamma approximation not included; round for simplicity
+      n = Math.round(n);
+    }
+    let r=1; for(let i=2;i<=n;i++) r*=i; return r;
+  }
+
+  const val = parseExpression();
+  if(pos < s.length) throw new Error('Syntax error');
+  return val;
+}
+
+function formatNumber(n){
+  if(!isFinite(n)) return n>0? "∞" : (isNaN(n)?"Math ERROR":"-∞");
+  if(Math.abs(n) < 1e-10) n = 0;
+  let rounded = Math.round(n*1e10)/1e10;
+  let str = rounded.toString();
+  if(str.length > 12){
+    if(Math.abs(rounded) >= 1e12 || (Math.abs(rounded) < 1e-6 && rounded!==0)){
+      str = rounded.toExponential(6);
+    } else {
+      str = rounded.toPrecision(10);
+      str = parseFloat(str).toString();
+    }
+  }
+  return str;
+}
+
+function doEquals(){
+  if(!expr){ return; }
+  try{
+    const v = evaluate(expr);
+    ans = v;
+    result = formatNumber(v);
+    justEvaluated = true;
+  }catch(e){
+    result = "Math ERROR";
+    justEvaluated = true;
+  }
+  render();
+}
+
+/* live preview while typing (optional, lightweight) */
+document.getElementById('screen').addEventListener('input', ()=>{});
+
+/* clock */
+function tick(){
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2,'0');
+  const mm = String(d.getMinutes()).padStart(2,'0');
+  document.getElementById('clock').textContent = hh+":"+mm;
+}
+tick(); setInterval(tick, 15000);
+
+/* keyboard support (desktop convenience) */
+window.addEventListener('keydown', (e)=>{
+  const map = {
+    '0':'insert:0','1':'insert:1','2':'insert:2','3':'insert:3','4':'insert:4',
+    '5':'insert:5','6':'insert:6','7':'insert:7','8':'insert:8','9':'insert:9',
+    '.':'insert:.','+':'insert:+','-':'insert:-','*':'insert:*','/':'insert:/',
+    '(':'insert:(',')':'insert:)','Enter':'equals','=':'equals',
+    'Backspace':'del','Escape':'clear'
+  };
+  if(map[e.key]){ e.preventDefault(); press(map[e.key]); }
+});
+
+/* register service worker for offline use */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
