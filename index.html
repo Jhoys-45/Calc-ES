@@ -1,605 +1,441 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>fx-Calc PRO</title>
-<meta name="theme-color" content="#141418">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="fx-Calc">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" href="icon-192.png">
-<style>
-@font-face{
-  font-family: 'CalcFont';
-  src: url(data:font/woff2;base64,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) format('woff2');
-  font-weight: normal; font-style: normal; font-display: swap;
-}
-:root{
-  --bg:#141418;
-  --panel:#1c1c22;
-  --screen-bg:#cfdfd9;
-  --screen-bg2:#c3d6cf;
-  --key-dark:#2b2b32;
-  --key-mid:#3d3d46;
-  --key-light:#55555f;
-  --key-orange:#e8923c;
-  --key-orange-dark:#c97a2c;
-  --key-alpha:#7b5fc7;
-  --key-shift:#e0a92e;
-  --txt-white:#eef0f2;
-  --txt-yellow:#e2b23c;
-  --txt-purple:#a586e8;
-  --txt-cyan:#5fc7d8;
-  --txt-dim:#8a8a92;
-  --accent:#e8923c;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
-*{box-sizing:border-box; -webkit-tap-highlight-color: transparent; user-select:none;}
-html,body{
-  height:100%; margin:0; background:var(--bg); color:var(--txt-white);
-  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  overflow:hidden;
-}
-#app{
-  display:flex; flex-direction:column; height:100vh; height:100dvh;
-  max-width:520px; margin:0 auto; background:var(--bg);
-  padding-top: var(--safe-top); padding-bottom: var(--safe-bottom);
-}
-.mode-tabs{
-  display:flex; gap:18px; padding:10px 16px 8px; font-size:13px; font-weight:700;
-  color:var(--txt-dim); letter-spacing:.5px;
-}
-.mode-tabs span.active{ color:var(--txt-white); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
 
-/* screen */
-.screen-wrap{
-  margin:0 12px 10px; border-radius:14px; overflow:hidden;
-  background:linear-gradient(180deg,var(--screen-bg),var(--screen-bg2));
-  box-shadow: inset 0 2px 10px rgba(0,0,0,.25), 0 4px 10px rgba(0,0,0,.3);
-  flex-shrink:0;
-}
-#screen{
-  min-height:175px;
-  padding:14px 16px 12px;
-  display:flex; flex-direction:column; justify-content:space-between;
-  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color:#1d2b28;
-}
-.indicators{
-  display:flex; gap:7px; font-size:10.5px; font-weight:700; color:#3d5c54;
-  min-height:14px; letter-spacing:.5px;
-}
-.indicators span{ opacity:.22; }
-.indicators span.on{ opacity:1; }
-#expr{
-  font-size:19px; min-height:24px; text-align:left; word-break:break-all;
-  opacity:.85; letter-spacing:0; white-space:pre-wrap; font-weight:400;
-}
-#expr .cursor{
-  display:inline-block; width:2px; margin-left:1px; background:#1d2b28;
-  animation:blink 1s step-end infinite; vertical-align:-3px; height:1.05em;
-}
-@keyframes blink{ 0%,50%{opacity:1;} 50.01%,100%{opacity:0;} }
-#result{
-  font-size:36px; text-align:right; font-weight:400; min-height:44px;
-  letter-spacing:0; word-break:break-all;
-}
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0d0e10;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
 
-/* function row (row of small round icons) */
-.func-row{
-  display:flex; justify-content:space-between; align-items:center;
-  padding:4px 10px 6px; flex-shrink:0; gap:4px;
-}
-.fbtn{
-  width:34px;height:34px;border-radius:50%; flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--key-dark); font-size:13px; font-weight:700; color:var(--txt-white);
-  border:1px solid #38383f;
-}
-.fbtn.pro{
-  width:auto;padding:0 10px; border-radius:20px; font-size:11px;
-  background:linear-gradient(180deg,#8f6ce0,#6a48c2); gap:3px; color:#fff;
-}
-.fbtn.deg{ width:auto; padding:0 8px; border-radius:9px; font-size:11px; font-weight:700; border-color:#000; }
-.fbtn.scan{ width:auto; padding:0 10px; border-radius:20px; gap:4px; font-size:11px; background:#0b0b0d; border-color:#000;}
+        /* LCD Screen matching exact image styling */
+        .lcd-screen {
+            background-color: #d8e3e2;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.25);
+            font-family: 'Roboto Mono', monospace;
+            border-radius: 12px 12px 10px 10px;
+        }
 
-/* keypad */
-.keypad{
-  flex:1; display:flex; flex-direction:column; justify-content:flex-end;
-  padding:0 6px 6px; gap:1px; min-height:0;
-}
-.row{ display:flex; gap:4px; flex:1; min-height:0; }
-.cell{ flex:1; display:flex; flex-direction:column; align-items:stretch; justify-content:flex-end; min-width:0; }
-.key{
-  width:100%; flex:1; border:none; border-radius:9px;
-  background:var(--key-mid); color:var(--txt-white);
-  font-size:16px; font-weight:500; display:flex; align-items:center; justify-content:center;
-  min-height:0; position:relative;
-}
-.key:active{ filter:brightness(1.25); }
-.key.dark{ background:var(--key-dark); }
-.key.light{ background:var(--key-light); }
-.key.orange{ background:linear-gradient(180deg,#f0a355,var(--key-orange-dark)); color:#231205; font-weight:700;}
-.key.shift{ background:linear-gradient(180deg,#f0c14e,var(--key-shift)); color:#241a02; font-weight:700; }
-.key.alpha{ background:linear-gradient(180deg,#9a80e8,var(--key-alpha)); color:#fff; font-weight:700; }
-.key.shift.active{ box-shadow:0 0 0 2px #fff inset; }
-.key.alpha.active{ box-shadow:0 0 0 2px #fff inset; }
-.key sup{ font-size:.6em; }
-.sublabels{
-  display:flex; justify-content:space-between; width:100%; font-size:9px; font-weight:700;
-  padding:0 3px; min-height:11px; line-height:1.3; flex-shrink:0;
-}
-.sub-shift{ color:var(--txt-yellow); text-align:left; flex:1; }
-.sub-alpha{ color:var(--txt-purple); text-align:right; flex:1; }
-.sub-shift.only, .sub-alpha.only{ flex:none; width:100%; text-align:center; }
+        /* Color definitions matching image */
+        .color-shift { color: #f2ad1b; }
+        .bg-shift { background-color: #f2ad1b; color: #111; }
+        .color-alpha { color: #8a73dd; }
+        .bg-alpha { background-color: #8a73dd; color: #fff; }
+        .bg-orange-del { background-color: #e27530; color: #111; }
+        .bg-orange-ac { background-color: #f58f4a; color: #111; }
+        .bg-key { background-color: #2b2e36; color: #e1e3e6; }
+        .bg-key:active { background-color: #3f434d; }
+        .bg-key-num { background-color: #202227; color: #ffffff; }
+        .bg-key-num:active { background-color: #353840; }
 
-@media (max-height: 700px){
-  #screen{ min-height:120px; padding:10px 14px 6px; }
-  #result{ font-size:28px; min-height:34px; }
-  .sublabels{ font-size:8px; }
-}
-</style>
+        /* Key Grid Styles */
+        .calc-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 500;
+            position: relative;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+            transition: transform 0.05s ease, box-shadow 0.05s ease;
+        }
+
+        .calc-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.4);
+        }
+
+        /* D-Pad Layout */
+        .dpad-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #383c46;
+            border-radius: 12px;
+            clip-path: polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+        }
+
+        .dpad-btn {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a5b1;
+            font-size: 10px;
+        }
+        .dpad-btn:active { color: #ffffff; }
+        .dpad-up { top: 4px; left: 0; right: 0; }
+        .dpad-down { bottom: 4px; left: 0; right: 0; }
+        .dpad-left { left: 4px; top: 0; bottom: 0; }
+        .dpad-right { right: 4px; top: 0; bottom: 0; }
+        .dpad-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            background-color: #1a1c20;
+            border-radius: 50%;
+        }
+
+        .sub-label-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 2px;
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+            height: 11px;
+        }
+
+        .calc-body {
+            max-width: 412px;
+            width: 100%;
+            background-color: #121418;
+            border-radius: 20px;
+        }
+    </style>
 </head>
-<body>
-<div id="app">
-  <div class="mode-tabs">
-    <span id="tab-norm" class="active">NORM</span>
-    <span id="tab-math">MATH</span>
-    <span id="tab-deci">DECI</span>
-  </div>
+<body class="flex items-center justify-center min-h-screen text-white p-2">
 
-  <div class="screen-wrap">
-    <div id="screen">
-      <div class="indicators">
-        <span id="ind-shift">SHIFT</span>
-        <span id="ind-alpha">ALPHA</span>
-        <span id="ind-deg">DEG</span>
-        <span id="ind-rad">RAD</span>
-        <span id="ind-m" style="margin-left:auto">M</span>
-      </div>
-      <div id="expr"><span class="cursor"></span></div>
-      <div id="result">0</div>
+    <div class="calc-body shadow-2xl p-4 my-auto border border-gray-800">
+        
+        <!-- Top Status Bar Indicators -->
+        <div class="flex justify-between items-center text-[9px] text-gray-500 font-mono px-1 mb-1 tracking-wider">
+            <span class="text-[8px] text-gray-600">S A STO RCL</span>
+            <div class="space-x-2">
+                <span class="font-bold text-gray-300">NORM-11</span>
+                <span>MATH</span>
+                <span>DECI</span>
+            </div>
+        </div>
+
+        <!-- LCD Screen (Matching Image 2 Display exactly) -->
+        <div class="lcd-screen p-3 h-36 flex flex-col justify-between text-gray-800 mb-3 relative">
+            <!-- Upper Left: Input Expression (e.g. 59x3) -->
+            <div id="expression-display" class="text-left text-lg font-mono font-medium text-gray-900 overflow-x-auto whitespace-nowrap min-h-[28px] tracking-wide">
+                <!-- Expression appears here -->
+            </div>
+
+            <!-- Lower Row: 3-dot option icon on the left, Result on the right -->
+            <div class="flex items-end justify-between w-full mt-auto">
+                <!-- Left Option Dots (⋮) -->
+                <div class="text-gray-600 text-lg leading-none cursor-pointer hover:text-gray-900 pb-0.5">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </div>
+
+                <!-- Lower Right: Calculated Result (e.g. 177) -->
+                <div id="result-display" class="text-right text-2xl font-mono font-semibold text-gray-900 overflow-x-auto whitespace-nowrap tracking-wider pl-2 min-h-[32px]">
+                    <!-- Output result appears here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Function Icon Bar -->
+        <div class="grid grid-cols-8 gap-1 mb-2 items-center text-center">
+            <button class="bg-[#212328] hover:bg-[#2e3138] p-1.5 rounded-lg text-gray-300 flex justify-center items-center h-8">
+                <i class="fa-solid fa-bars text-xs"></i>
+            </button>
+            <button class="bg-[#7c5cdb] text-white p-1 rounded-lg font-bold text-xs flex justify-center items-center space-x-0.5 h-8 col-span-1">
+                <i class="fa-solid fa-gem text-[9px]"></i>
+                <span class="text-[9px]">PRO</span>
+            </button>
+            <button class="bg-[#212328] hover:bg-[#2e3138] p-1.5 rounded-lg text-gray-300 flex justify-center items-center h-8 text-xs font-bold">
+                ∑
+            </button>
+            <button class="bg-[#212328] hover:bg-[#2e3138] p-1.5 rounded-lg text-gray-300 flex justify-center items-center h-8">
+                <i class="fa-solid fa-gear text-xs"></i>
+            </button>
+            <button class="bg-[#212328] hover:bg-[#2e3138] p-1.5 rounded-lg text-gray-300 flex justify-center items-center h-8 text-xs">
+                <span class="border border-gray-400 rounded-full w-3.5 h-3.5 flex items-center justify-center text-[9px]">±</span>
+            </button>
+            <button class="bg-[#212328] hover:bg-[#2e3138] p-1.5 rounded-lg text-gray-300 flex justify-center items-center h-8">
+                <i class="fa-solid fa-camera text-xs"></i>
+            </button>
+            <button class="bg-[#382d54] text-[#a98fec] p-1 rounded-lg font-bold text-[9px] h-8 flex items-center justify-center">
+                MORE
+            </button>
+            <button class="bg-[#212328] hover:bg-[#2e3138] p-1 rounded-lg text-gray-300 text-[9px] font-bold h-8 flex items-center justify-center">
+                RAD
+            </button>
+        </div>
+
+        <!-- Keypad Matrix -->
+        <div class="space-y-1.5">
+
+            <!-- Row 1: SHIFT, ALPHA, D-PAD, MODE, 2nd -->
+            <div class="grid grid-cols-5 gap-1.5 h-10">
+                <button class="calc-btn bg-shift font-bold text-xs">SHIFT</button>
+                <button class="calc-btn bg-alpha font-bold text-xs">ALPHA</button>
+                
+                <!-- Cross / D-Pad Button -->
+                <div class="dpad-container relative">
+                    <div class="dpad-btn dpad-up"><i class="fa-solid fa-caret-up"></i></div>
+                    <div class="dpad-btn dpad-left"><i class="fa-solid fa-caret-left"></i></div>
+                    <div class="dpad-btn dpad-right"><i class="fa-solid fa-caret-right"></i></div>
+                    <div class="dpad-btn dpad-down"><i class="fa-solid fa-caret-down"></i></div>
+                    <div class="dpad-center"></div>
+                </div>
+
+                <button class="calc-btn bg-key text-xs">MODE</button>
+                <button class="calc-btn bg-key text-xs font-serif italic">2nd</button>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">SOLVE</span><span class="color-alpha">=</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">CALC</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">d/dx</span><span class="color-alpha">;</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">∫dx</button>
+                </div>
+                <div class="col-start-4">
+                    <div class="sub-label-container justify-center"><span class="color-shift">x!</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">x ⁻¹</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">∑</span><span class="color-alpha">∏</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">Log<sub>x</sub>y</button>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">x/y</span><span class="color-alpha">+R</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs"><sup>x</sup>/<sub>y</sub></button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">³√x</span><span class="color-alpha">mod</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">√x</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">x³</span><span class="color-alpha">x̄</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">x²</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift"><sup>x</sup>√y</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">x<sup>y</sup></button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">10<sup>x</sup></span><span class="color-alpha">e<sup>x</sup></span><span class="color-alpha">t</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">Log</button>
+                </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">∠</span><span class="color-alpha">a</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">(-)</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">FACT</span><span class="color-alpha">b</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">° ' "</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">|x|</span><span class="color-alpha">c</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">hyp</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">Sin⁻¹</span><span class="color-alpha">d</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">Sin</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">Cos⁻¹</span><span class="color-alpha">e</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">Cos</button>
+                </div>
+            </div>
+
+            <!-- Row 5 -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">STO</span><span class="color-shift">CLRv</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">RCL</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift"><i>i</i></span><span class="color-alpha">Cot</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">ENG</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">%</span><span class="color-alpha">Cot⁻¹</span></div>
+                    <button onclick="appendInput('(')" class="calc-btn bg-key w-full h-8 text-xs">(</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">,</span><span class="color-alpha">x</span></div>
+                    <button onclick="appendInput(')')" class="calc-btn bg-key w-full h-8 text-xs">)</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift"><sup>a b</sup>/<sub>c</sub> ⇔ <sup>d</sup>/<sub>e</sub></span><span class="color-alpha">y</span></div>
+                    <button class="calc-btn bg-key w-full h-8 text-xs">S ⇔ D</button>
+                </div>
+            </div>
+
+            <!-- Row 6: Numbers 7, 8, 9 & Clear/Delete Keys -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">CONST</span></div>
+                    <button onclick="appendInput('7')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">7</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">CONV</span><span class="color-alpha">SI</span></div>
+                    <button onclick="appendInput('8')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">8</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">Limit</span><span class="color-alpha">∞</span></div>
+                    <button onclick="appendInput('9')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">9</button>
+                </div>
+                <div class="col-span-1">
+                    <div class="sub-label-container"></div>
+                    <button onclick="backspace()" class="calc-btn bg-orange-del w-full h-9 text-lg"><i class="fa-solid fa-delete-left"></i></button>
+                </div>
+                <div class="col-span-1">
+                    <div class="sub-label-container"><span class="color-shift">CLR</span><span class="color-shift">ALL</span></div>
+                    <button onclick="clearAll()" class="calc-btn bg-orange-ac w-full h-9 text-base font-bold">AC</button>
+                </div>
+            </div>
+
+            <!-- Row 7: Numbers 4, 5, 6 & Multiplication / Division -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">MATRIX</span><span class="color-alpha">:::</span></div>
+                    <button onclick="appendInput('4')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">4</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">VECTOR</span></div>
+                    <button onclick="appendInput('5')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">5</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">FUNC</span><span class="color-alpha">HELP</span></div>
+                    <button onclick="appendInput('6')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">6</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">nPr</span><span class="color-alpha">GCD</span></div>
+                    <button onclick="appendInput('×')" class="calc-btn bg-key w-full h-9 text-lg font-bold">×</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">nCr</span><span class="color-alpha">LCM</span></div>
+                    <button onclick="appendInput('÷')" class="calc-btn bg-key w-full h-9 text-lg font-bold">÷</button>
+                </div>
+            </div>
+
+            <!-- Row 8: Numbers 1, 2, 3 & Addition / Subtraction -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">STAT</span></div>
+                    <button onclick="appendInput('1')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">1</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">CMPLX</span></div>
+                    <button onclick="appendInput('2')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">2</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">DISTR</span></div>
+                    <button onclick="appendInput('3')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">3</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">Pol</span><span class="color-alpha">Ceil</span></div>
+                    <button onclick="appendInput('+')" class="calc-btn bg-key w-full h-9 text-lg font-bold">+</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">Rec</span><span class="color-alpha">Floor</span></div>
+                    <button onclick="appendInput('-')" class="calc-btn bg-key w-full h-9 text-lg font-bold">-</button>
+                </div>
+            </div>
+
+            <!-- Row 9: 0, Dot, Exp, Ans, Equals -->
+            <div class="grid grid-cols-5 gap-1.5">
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">COPY</span><span class="color-alpha">PASTE</span></div>
+                    <button onclick="appendInput('0')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">0</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">Ran#</span><span class="color-alpha">RanInt</span></div>
+                    <button onclick="appendInput('.')" class="calc-btn bg-key-num w-full h-9 text-base font-bold">.</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">π</span><span class="color-alpha">e</span></div>
+                    <button class="calc-btn bg-key w-full h-9 text-sm font-semibold">Exp</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-alpha">PreAns</span></div>
+                    <button class="calc-btn bg-key w-full h-9 text-sm font-semibold">Ans</button>
+                </div>
+                <div>
+                    <div class="sub-label-container"><span class="color-shift">History</span></div>
+                    <button onclick="calculateResult()" class="calc-btn bg-key w-full h-9 text-lg font-bold">=</button>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
 
-  <div class="func-row">
-    <div class="fbtn" data-act="menu">☰</div>
-    <div class="fbtn pro">◈ PRO</div>
-    <div class="fbtn" data-act="sum">Σ</div>
-    <div class="fbtn" data-act="settings">⚙</div>
-    <div class="fbtn" data-act="angleunit">±</div>
-    <div class="fbtn deg" id="degBtn" data-act="toggledeg">DEG</div>
-    <div class="fbtn scan" data-act="noop">📷 SCAN</div>
-  </div>
+    <script>
+        let currentExpression = '';
+        let lastResult = '';
 
-  <div class="keypad" id="keypad"></div>
-</div>
+        const expressionDisplay = document.getElementById('expression-display');
+        const resultDisplay = document.getElementById('result-display');
 
-<script>
-/* ================= DATA MODEL FOR KEYS ================= */
-/*
- each key: { main, sub1(shift-left), sub2(alpha-right or center), cls, action }
- action refers to a function name handled in press()
-*/
-const rows = [
-[
- {main:"SHIFT", cls:"shift", action:"shift"},
- {main:"ALPHA", cls:"alpha", action:"alpha"},
- {main:"◀", cls:"dark", action:"left"},
- {main:"▶", cls:"dark", action:"right"},
- {main:"MODE", cls:"dark", action:"mode"},
- {main:"2nd", cls:"dark", action:"noop"}
-],
-[
- {main:"SOLVE", sub1:"SOLVE", sub2:"d/dx", cls:"light", action:"noop"},
- {main:"∫dx", sub1:"∫dx", cls:"light", action:"insert:∫("},
- {main:"▲", cls:"light", action:"up"},
- {main:"▼", cls:"light", action:"down"},
- {main:"x⁻¹", sub1:"x⁻¹", cls:"light", action:"insert:^(-1)"},
- {main:"Logₓy", sub1:"Logₓy", cls:"light", action:"insert:logx("}
-],
-[
- {main:"x/y", sub1:"x/y", sub2:"÷R", cls:"light", action:"insert:/"},
- {main:"√x", sub1:"³√x", sub2:"mod", cls:"light", action:"insert:√("},
- {main:"x²", sub1:"x³", cls:"light", action:"insert:^2"},
- {main:"xʸ", sub1:"ˣ√y", cls:"light", action:"insert:^("},
- {main:"Log", sub1:"10ˣ", cls:"light", action:"insert:log("},
- {main:"Ln", sub1:"eˣ", cls:"light", action:"insert:ln("}
-],
-[
- {main:"(-)", sub1:"∠", sub2:"a", cls:"light", action:"negate"},
- {main:"°'\"", sub1:"°'\"", cls:"light", action:"insert:°"},
- {main:"hyp", sub1:"FACT", sub2:"b", cls:"light", action:"toggleHyp"},
- {main:"Sin", sub1:"Sin⁻¹", sub2:"d", cls:"light", action:"insert:sin("},
- {main:"Cos", sub1:"Cos⁻¹", sub2:"e", cls:"light", action:"insert:cos("},
- {main:"Tan", sub1:"Tan⁻¹", sub2:"f", cls:"light", action:"insert:tan("}
-],
-[
- {main:"RCL", sub1:"STO", sub2:"CLRv", cls:"light", action:"rcl"},
- {main:"ENG", sub1:"i", sub2:"Cot", cls:"light", action:"insert:E"},
- {main:"(", sub1:"%", cls:"light", action:"insert:("},
- {main:")", sub1:"Cot⁻¹", cls:"light", action:"insert:)"},
- {main:"S⇌D", sub1:",", sub2:"x", cls:"light", action:"noop"},
- {main:"M+", sub1:"M-", sub2:"m", cls:"light", action:"mplus"}
-],
-[
- {main:"7", sub1:"MATRIX", cls:"dark num", action:"insert:7"},
- {main:"8", sub1:"VECTOR", cls:"dark num", action:"insert:8"},
- {main:"9", sub1:"FUNC", sub2:"HELP", cls:"dark num", action:"insert:9"},
- {main:"⌫", sub1:"nPr", sub2:"GCD", cls:"orange", action:"del"},
- {main:"AC", sub1:"CLR", sub2:"ALL", cls:"orange", action:"clear"}
-],
-[
- {main:"4", sub1:"STAT", cls:"dark num", action:"insert:4"},
- {main:"5", sub1:"CMPLX", cls:"dark num", action:"insert:5"},
- {main:"6", sub1:"DISTR", cls:"dark num", action:"insert:6"},
- {main:"×", sub1:"Pol", sub2:"Ceil", cls:"dark", action:"insert:*"},
- {main:"÷", sub1:"Rec", sub2:"Floor", cls:"dark", action:"insert:/"}
-],
-[
- {main:"1", cls:"dark num", action:"insert:1"},
- {main:"2", cls:"dark num", action:"insert:2"},
- {main:"3", cls:"dark num", action:"insert:3"},
- {main:"+", cls:"dark", action:"insert:+"},
- {main:"−", cls:"dark", action:"insert:-"}
-],
-[
- {main:"0", sub1:"COPY", sub2:"PASTE", cls:"dark num", action:"insert:0"},
- {main:".", sub1:"Ran#", sub2:"RanInt", cls:"dark num", action:"insert:."},
- {main:"Exp", sub1:"π", sub2:"e", cls:"dark", action:"expOrPi"},
- {main:"Ans", sub1:"PreAns", cls:"dark", action:"insert:Ans"},
- {main:"=", sub1:"History", cls:"orange", action:"equals"}
-]
-];
+        function updateScreen() {
+            expressionDisplay.innerText = currentExpression;
+            resultDisplay.innerText = lastResult;
+        }
 
-const keypad = document.getElementById('keypad');
-rows.forEach(r=>{
-  const rowEl = document.createElement('div');
-  rowEl.className='row';
-  r.forEach(k=>{
-    const cell = document.createElement('div');
-    cell.className='cell';
-    if(k.sub1 || k.sub2){
-      const subs = document.createElement('div');
-      subs.className='sublabels';
-      if(k.sub1 && k.sub2){
-        subs.innerHTML = `<span class="sub-shift">${k.sub1}</span><span class="sub-alpha">${k.sub2}</span>`;
-      } else if(k.sub1){
-        subs.innerHTML = `<span class="sub-shift only">${k.sub1}</span>`;
-      }
-      cell.appendChild(subs);
-    } else {
-      const spacer = document.createElement('div');
-      spacer.className='sublabels';
-      spacer.innerHTML='&nbsp;';
-      cell.appendChild(spacer);
-    }
-    const btn = document.createElement('button');
-    btn.className = 'key ' + (k.cls||'');
-    btn.innerHTML = k.main;
-    btn.dataset.action = k.action;
-    btn.addEventListener('click', ()=>press(k.action, btn));
-    cell.appendChild(btn);
-    rowEl.appendChild(cell);
-  });
-  keypad.appendChild(rowEl);
-});
+        function appendInput(val) {
+            currentExpression += val;
+            updateScreen();
+        }
 
-/* ================= STATE ================= */
-let expr = "";
-let result = "0";
-let ans = 0;
-let memory = 0;
-let isDeg = true;
-let shiftOn = false;
-let alphaOn = false;
-let hypOn = false;
-let justEvaluated = false;
+        function clearAll() {
+            currentExpression = '';
+            lastResult = '';
+            updateScreen();
+        }
 
-const exprEl = document.getElementById('expr');
-const resultEl = document.getElementById('result');
-const indShift = document.getElementById('ind-shift');
-const indAlpha = document.getElementById('ind-alpha');
-const indDeg = document.getElementById('ind-deg');
-const indRad = document.getElementById('ind-rad');
-const indM = document.getElementById('ind-m');
-const degBtn = document.getElementById('degBtn');
+        function backspace() {
+            if (currentExpression.length > 0) {
+                currentExpression = currentExpression.slice(0, -1);
+                updateScreen();
+            }
+        }
 
-function escapeHtml(s){
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-function render(){
-  exprEl.innerHTML = escapeHtml(expr) + '<span class="cursor"></span>';
-  resultEl.textContent = result;
-  indShift.classList.toggle('on', shiftOn);
-  indAlpha.classList.toggle('on', alphaOn);
-  indDeg.classList.toggle('on', isDeg);
-  indRad.classList.toggle('on', !isDeg);
-  indM.classList.toggle('on', memory !== 0);
-  degBtn.textContent = isDeg ? "DEG" : "RAD";
-}
-render();
+        function calculateResult() {
+            if (!currentExpression) return;
+            
+            try {
+                // Convert visual operators (×, ÷) to JS evaluation operators (*, /)
+                let sanitizeExpr = currentExpression
+                    .replace(/×/g, '*')
+                    .replace(/÷/g, '/');
 
-function press(action, btn){
-  if(navigator.vibrate) navigator.vibrate(8);
-  if(!action) return;
-  if(action.startsWith('insert:')){
-    let val = action.slice(7);
-    if(shiftOn) val = shiftMap(val);
-    doInsert(val);
-    if(shiftOn) shiftOn=false;
-    render();
-    return;
-  }
-  switch(action){
-    case 'shift': shiftOn=!shiftOn; if(shiftOn) alphaOn=false; render(); return;
-    case 'alpha': alphaOn=!alphaOn; if(alphaOn) shiftOn=false; render(); return;
-    case 'toggledeg': isDeg=!isDeg; render(); return;
-    case 'toggleHyp': hypOn=!hypOn; return;
-    case 'clear':
-      if(shiftOn){ expr=""; result="0"; ans=0; memory=0; shiftOn=false; }
-      else { expr=""; result= justEvaluated ? result : "0"; if(!justEvaluated) result="0"; }
-      justEvaluated=false;
-      render(); return;
-    case 'del':
-      if(justEvaluated){ expr=""; justEvaluated=false; }
-      else expr = expr.slice(0,-1);
-      render(); return;
-    case 'left': moveCursorPlaceholder(); return;
-    case 'right': moveCursorPlaceholder(); return;
-    case 'up': case 'down': case 'noop': case 'mode':
-    case 'menu': case 'sum': case 'settings': case 'angleunit': return;
-    case 'negate':
-      doInsert('-');
-      render(); return;
-    case 'mplus':
-      try{
-        const v = evaluate(expr || result);
-        if(shiftOn){ memory -= v; shiftOn=false; }
-        else memory += v;
-      }catch(e){}
-      render(); return;
-    case 'rcl':
-      if(shiftOn){ doInsert(String(memory)); shiftOn=false; }
-      else { doInsert(String(memory)); }
-      render(); return;
-    case 'expOrPi':
-      if(shiftOn){ doInsert('π'); shiftOn=false; }
-      else if(alphaOn){ doInsert('e'); alphaOn=false; }
-      else doInsert('E');
-      render(); return;
-    case 'equals':
-      doEquals(); return;
-    default: return;
-  }
-}
-
-function shiftMap(val){
-  const map = {
-    '7':'MATRIX-menu','8':'VECTOR-menu','9':'FUNC-menu',
-    '/':'/', '√(':'∛(', '^2':'^3', '^(':'^(1/', 'log(':'10^(', 'ln(':'e^(',
-    'sin(':'asin(', 'cos(':'acos(', 'tan(':'atan(',
-    '(':'%', 'E':'ENG'
-  };
-  return map[val] || val;
-}
-
-function moveCursorPlaceholder(){ /* simple calculators just append; caret nav omitted */ }
-
-function doInsert(val){
-  if(justEvaluated){
-    // continue from ans if operator pressed, else start new
-    const operators = ['+','-','*','/','^','^(','^2','^3'];
-    if(operators.includes(val)){ expr = "Ans" + toExprToken(val); }
-    else { expr = toExprToken(val); }
-    justEvaluated = false;
-  } else {
-    expr += toExprToken(val);
-  }
-}
-function toExprToken(val){
-  return val;
-}
-
-/* ================= EXPRESSION EVALUATION ================= */
-function preprocess(str){
-  let s = str;
-  s = s.replaceAll('Ans', '('+ans+')');
-  s = s.replaceAll('π', 'PI');
-  s = s.replaceAll('E', 'e+');
-  s = s.replaceAll('√(', 'sqrt(');
-  s = s.replaceAll('∛(', 'cbrt(');
-  s = s.replaceAll('log(', 'log10(');
-  s = s.replaceAll('ln(', 'loge(');
-  s = s.replaceAll('logx(', 'logx(');
-  // implicit multiplication: number followed by ( or PI or e or sqrt etc
-  s = s.replace(/(\d|\)|PI|Ans)(\()/g, '$1*(');
-  s = s.replace(/(\))(\d)/g, '$1*$2');
-  s = s.replace(/(\d)(PI)/g, '$1*$2');
-  return s;
-}
-
-// tokenizer + recursive descent parser supporting: + - * / ^ ! % parentheses functions
-function evaluate(raw){
-  let s = preprocess(raw);
-  let pos = 0;
-  function peek(){ return s[pos]; }
-  function isDigit(c){ return c>='0'&&c<='9'; }
-  function isAlpha(c){ return c && /[a-zA-Z_]/.test(c); }
-
-  function parseExpression(){ return parseAddSub(); }
-  function parseAddSub(){
-    let left = parseMulDiv();
-    while(peek()==='+'||peek()==='-'){
-      const op = s[pos++];
-      const right = parseMulDiv();
-      left = op==='+' ? left+right : left-right;
-    }
-    return left;
-  }
-  function parseMulDiv(){
-    let left = parseUnary();
-    while(peek()==='*'||peek()==='/'){
-      const op = s[pos++];
-      const right = parseUnary();
-      left = op==='*' ? left*right : left/right;
-    }
-    return left;
-  }
-  function parseUnary(){
-    if(peek()==='-'){ pos++; return -parseUnary(); }
-    if(peek()==='+'){ pos++; return parseUnary(); }
-    return parsePow();
-  }
-  function parsePow(){
-    let left = parsePostfix();
-    if(peek()==='^'){
-      pos++;
-      const right = parseUnary();
-      left = Math.pow(left, right);
-    }
-    return left;
-  }
-  function parsePostfix(){
-    let left = parseAtom();
-    while(peek()==='!' || peek()==='%'){
-      if(peek()==='!'){ pos++; left = factorial(left); }
-      else if(peek()==='%'){ pos++; left = left/100; }
-    }
-    return left;
-  }
-  function parseAtom(){
-    if(peek()==='('){
-      pos++;
-      const v = parseExpression();
-      if(peek()===')') pos++;
-      return v;
-    }
-    if(isDigit(peek()) || peek()==='.'){
-      let start = pos;
-      while(isDigit(peek())||peek()==='.') pos++;
-      return parseFloat(s.slice(start,pos));
-    }
-    if(isAlpha(peek())){
-      let start = pos;
-      while(isAlpha(peek())||isDigit(peek())) pos++;
-      const name = s.slice(start,pos);
-      return applyFunc(name);
-    }
-    throw new Error('Syntax error');
-  }
-  function applyFunc(name){
-    const constants = {PI: Math.PI, e:Math.E};
-    if(name in constants && peek()!=='('){ return constants[name]; }
-    if(peek()==='('){
-      pos++;
-      const arg = parseExpression();
-      let arg2 = null;
-      if(peek()===','){ pos++; arg2 = parseExpression(); }
-      if(peek()===')') pos++;
-      return callFunc(name, arg, arg2);
-    }
-    if(name in constants) return constants[name];
-    throw new Error('Unknown identifier: '+name);
-  }
-  function callFunc(name, x, y){
-    const toRad = v => isDeg ? v*Math.PI/180 : v;
-    const fromRad = v => isDeg ? v*180/Math.PI : v;
-    switch(name){
-      case 'sin': return Math.sin(toRad(x));
-      case 'cos': return Math.cos(toRad(x));
-      case 'tan': return Math.tan(toRad(x));
-      case 'asin': return fromRad(Math.asin(x));
-      case 'acos': return fromRad(Math.acos(x));
-      case 'atan': return fromRad(Math.atan(x));
-      case 'sqrt': return Math.sqrt(x);
-      case 'cbrt': return Math.cbrt(x);
-      case 'log10': return Math.log10(x);
-      case 'loge': return Math.log(x);
-      case 'logx': return y!=null ? Math.log(y)/Math.log(x) : Math.log10(x);
-      case 'abs': return Math.abs(x);
-      default: throw new Error('Unknown function: '+name);
-    }
-  }
-  function factorial(n){
-    if(n<0 || !Number.isFinite(n)) return NaN;
-    if(Math.floor(n)!==n){
-      // gamma approximation not included; round for simplicity
-      n = Math.round(n);
-    }
-    let r=1; for(let i=2;i<=n;i++) r*=i; return r;
-  }
-
-  const val = parseExpression();
-  if(pos < s.length) throw new Error('Syntax error');
-  return val;
-}
-
-function formatNumber(n){
-  if(!isFinite(n)) return n>0? "∞" : (isNaN(n)?"Math ERROR":"-∞");
-  if(Math.abs(n) < 1e-10) n = 0;
-  let rounded = Math.round(n*1e10)/1e10;
-  let str = rounded.toString();
-  if(str.length > 12){
-    if(Math.abs(rounded) >= 1e12 || (Math.abs(rounded) < 1e-6 && rounded!==0)){
-      str = rounded.toExponential(6);
-    } else {
-      str = rounded.toPrecision(10);
-      str = parseFloat(str).toString();
-    }
-  }
-  return str;
-}
-
-function doEquals(){
-  if(!expr){ return; }
-  try{
-    const v = evaluate(expr);
-    ans = v;
-    result = formatNumber(v);
-    justEvaluated = true;
-  }catch(e){
-    result = "Math ERROR";
-    justEvaluated = true;
-  }
-  render();
-}
-
-/* live preview while typing (optional, lightweight) */
-document.getElementById('screen').addEventListener('input', ()=>{});
-
-/* clock */
-function tick(){
-  const d = new Date();
-  const hh = String(d.getHours()).padStart(2,'0');
-  const mm = String(d.getMinutes()).padStart(2,'0');
-  document.getElementById('clock').textContent = hh+":"+mm;
-}
-tick(); setInterval(tick, 15000);
-
-/* keyboard support (desktop convenience) */
-window.addEventListener('keydown', (e)=>{
-  const map = {
-    '0':'insert:0','1':'insert:1','2':'insert:2','3':'insert:3','4':'insert:4',
-    '5':'insert:5','6':'insert:6','7':'insert:7','8':'insert:8','9':'insert:9',
-    '.':'insert:.','+':'insert:+','-':'insert:-','*':'insert:*','/':'insert:/',
-    '(':'insert:(',')':'insert:)','Enter':'equals','=':'equals',
-    'Backspace':'del','Escape':'clear'
-  };
-  if(map[e.key]){ e.preventDefault(); press(map[e.key]); }
-});
-
-/* register service worker for offline use */
-if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  });
-}
-</script>
+                let evaluated = eval(sanitizeExpr);
+                
+                if (evaluated !== undefined) {
+                    lastResult = String(evaluated);
+                }
+            } catch (error) {
+                lastResult = 'Error';
+            }
+            
+            updateScreen();
+        }
+    </script>
 </body>
 </html>
